@@ -24,9 +24,10 @@ class Player:
     def __init__(self, facedown, faceup, hand): # On initalisation of class
         self.facedown = facedown
         self.faceup = faceup
+        self.faceup.sort(key=lambda card: card.value) # Sort faceups
         self.hand = hand
 
-    def __str__(self): # Make a string of all cards that a player possesses, dev use only. Otherwise use display
+    def __str__(self): # Make a string of all cards that a player possesses, dev use only. Otherwise use display function
         h = "|"
         for card in self.hand:
             h = h + " " + str(card) + " |"
@@ -162,6 +163,10 @@ class Player:
 
         return deck
 
+    def sort(self):
+        # Sort the hand based on card values
+        self.hand.sort(key=lambda card: card.value)
+
 
 def main():
     # Ensure correct command line argument counts
@@ -224,6 +229,8 @@ def play_game(deck, players, num_players):
         player_no = round % num_players # Determine which player is going to play next
 
         if player_no not in winners: # Assuming player has not already won
+            players[player_no].sort()
+
             print(f"Player {player_no} - your turn!")
 
             if top_card == play_card: # If top card is play card, only show one
@@ -281,6 +288,9 @@ def play_game(deck, players, num_players):
                 if mode == "d" and len(players[player_no].facedown) == 0:
                     winners = win(player_no, winners, num_players)
 
+        if check_4_burn(pile):
+            pile = []
+
         round += 1 # Move onto next player
 
 # Check pile for card to be played on
@@ -293,6 +303,7 @@ def parse_pile(pile):
         else: # If card is not special, return it
             return pile[len(pile) - i]
 
+
 # Determine where a player will play cards from
 def set_mode(players, player_no):
         if len(players[player_no].hand) > 0:
@@ -303,6 +314,20 @@ def set_mode(players, player_no):
             return "d"
         else:
             raise ValueError("Could Not Assign Mode")
+
+# If 4 cards of the same value are played simultaniously, burn the pile
+def check_4_burn(pile):
+    if len(pile) >= 4:
+        i = 1
+        value_to_check = pile[len(pile) - i].value # Find value of top card to check for
+        while i <= 4:
+            i += 1
+            if pile[len(pile) - i] != value_to_check: # If values are not equal
+                return False
+
+        return True # If 4 consecutive valeus are equal
+    return False # If there are not 4 cards in a pile
+
 
 # Determine winners
 def win(player_no, winners, num_players):
