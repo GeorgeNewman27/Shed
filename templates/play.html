@@ -1,0 +1,22 @@
+{% extends "template.html" %}
+
+{% block title %}
+    Playing...
+{% endblock %}
+
+{% block main %}
+<!-- Given the pile, this outputs a list of all cards in the pile -->
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+      Pile
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for row in pile %}
+        <li class="list-group-item">{{ str(row) }}</li>
+        {% for row in pile %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

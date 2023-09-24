@@ -260,7 +260,10 @@ def play_game(deck, players, num_players):
                 cards_played = players[player_no].play(value, mode)
 
                 if mode == "d":
+                    print(f"Your face down was a {str(cards_played[0])} on a {str(play_card)}.")
                     if cards_played[0].value in playable_values:
+                        print(f"Player {player_no}, your face down has been played to the pile")
+                        print(f"You had a {int((len(playable_values) / 14) * 100)}% chance of this outcome occuring")
                         pile.append(cards_played[0])
                         if cards_played[0].value == 8: # 8 Skips next person, this also covers multiple skips
                             round += 1
@@ -270,6 +273,7 @@ def play_game(deck, players, num_players):
                     else:
                         pile.append(cards_played[0])
                         print(f"Player {player_no}, your face down could not be played and you have picked up the pile")
+                        print(f"You had a {int((len(playable_values) / 14) * 100)}% chance of this outcome occuring")
                         players[player_no].pickup(pile) # Pick up pile
                         pile = [] # Reset pile
                 else:
@@ -325,7 +329,7 @@ def check_4_burn(pile):
             if pile[len(pile) - i] != value_to_check: # If values are not equal
                 return False
 
-        return True # If 4 consecutive valeus are equal
+        return True # If 4 consecutive values are equal
     return False # If there are not 4 cards in a pile
 
 
@@ -353,9 +357,9 @@ def win(player_no, winners, num_players):
 
 def final_standings(winners): # Output the winners array to show final scores
     for i in range(len(winners)):
-        print(f"Position {i + 1}: Player {winners[i]}")
+        print(f"In position {i + 1} is Player: {winners[i]}")
 
-    sys.exit("Thanks for playing! Made by George Newman.")
+    sys.exit("Thanks for playing! Made by George Newman & Friso Bollato-Velda.")
 
 
 def load_deck(file_name):
