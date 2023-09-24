@@ -1,0 +1,108 @@
+{% extends "template.html" %}
+
+{% block title %}
+    Rules
+{% endblock %}
+
+{% block main %}
+<div><h1>Complete Rule List</h1></div>
+<br>
+<br>
+<style>
+  .accordion-body {
+    text-align: left;
+  }
+</style>
+<div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          Before Play Begins
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+          <ul>
+            <li>You will be dealt 9 cards: 3 "face-downs", 3 "face-ups" and a "hand" containing 3 "hand cards".</li>
+            <li>Your face-downs are visible to no-one, your face-ups are visible to everyone, and your hand cards are visible only to you.</li>
+            <li>If there are any cards remaining in the deck, these will be placed face-down on the table These cards are known as the "pick-up pile".</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          Playing The Game <!-- did someone say the game? -->
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
+          <ul>
+            <li>You may only play cards when it is your turn.</li>
+            <li>At the start of the game, a random player will take the first turn.</li>
+            <li>The order of play will then proceed in ascending order by player number.</li>
+            <li>When it is your turn, you may play a single card, or any number of cards of the same number value.</li>
+            <li>If you have any hand cards, you may only play hand cards.</li>
+            <li>If you do not have any hand cards, but do have face-ups, you may only play face-ups.</li>
+            <li>You may only play face-downs if you have no hand cards or face-ups.</li>
+            <li>If you play your last hand card, and have any face-up cards of the same number value, you may play these cards simultaneously.</li>
+            <li>When you play a card, it is placed face-up onto a pile on the table, known as the "play pile".</li>
+            <li>If at any point you have fewer than three hand cards, and there are cards remaining in the pick-up pile, take cards from the pick-up pile until you have three hand cards again, or the pick-up pile is depleted.</li>
+            <li>In general, you may only play a card if its number value is the same or higher than the number value of the card at the top of the play pile. Some special cards do not follow this rule, these are listed below. Aces are high.</li>
+            <li>If you are unable to play, you take the entire play pile and add it to your hand.</li>
+            <li>If four cards of the same number value are stacked on the play pile, the play pile is "burned", and moved to the "burn pile", meaning they are out of play. This is known as a "stack burn".</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          Ending The Game
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body">
+          <ul>
+            <li>The first person to have no hand cards, no face-ups and no face-downs remaining is out, wins the game, and stops playing.</li>
+            <li>You may continue play until only one player remains.</li>
+            <li>If you do so, the second player to get out comes second, etc.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+            Special Cards
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+          <div class="accordion-body">
+            <ul>
+              <li><strong>Some cards deviate from the standard rules in some way.</strong></li>
+              <li><strong>2s: </strong>Can be played on any card except for rules cards.</li>
+              <li><strong>3s: </strong>Can be played on any card except for rules cards, and are "invisible", meaning that they are never counted as the card on top of the play pile. If an invisible card is at the top of the play pile, the closest non-invisible card to the top is treated as if it were at the top instead.</li>
+              <li><strong>7s: </strong>Acts like a 3 (I.e. can be played on anything but rules and is invisible), but with a special rule. After a 7 is played, the order of play is swapped for one turn, so that the next turn is taken by the player who is adjacent in the anticlockwise direction to the player who played the 7. After this player takes their turn, the order of play resets, and skips to the player after the player who played the 7.</li>
+              <li>Additional rules are required for playing multiple 7s simultaneously: if n 7s are played simultaneously, the next turn is taken by the player n places away from the 7-player in the anticlockwise direction. Once they take their turn, play skips to the player after the 7-player in the clockwise direction.</li>
+              <li>Additional rules are required for playing multiple 7s subsequently. If a player who is taking their turn as a result of a 7 being played also plays a 7, prior instances of a 7 being played are forgotten. This means that once someone plays a card other than a 7, the order of play will return to being clockwise starting with the player after the player who most recently played a 7.</li>
+              <li><strong>8s: </strong>Skips the next player’s turn.</li>
+              <li>Additional rules are required for playing multiple 8s simultaneously. If n 8s are played simultaneously, the next n players have their turns skipped.</li>
+              <li><strong>9s: </strong>If a 9 is on the top of the play pile, you may only play cards with a number value less than or equal to 9, or a special card which allows you to ignore play restrictions. If an invisible card is on a 9, the rule still applies.</li>
+              <li><strong>10s: </strong>When a player plays a 10, the play pile is burned, and the 10-player takes another turn. This is known as a ’10 burn’ </li>
+              <li><strong>Joker: </strong>A joker may be played as if it were any card of the player’s choosing. When it is played as a card which is subject to play restrictions, the joker ignores these restrictions (I.e. you can play any card on any other card). If played as a special card, the joker adopts the properties or play restrictions of this card. If played as the appropriate card, jokers can contribute towards stack burns or 10 burns.</li>
+              <li><strong>Rules Card: </strong>Rules act like 3s (I.e. can be played on anything but rules and is invisible), except that they do not allow 2s, 3s, or other rules cards to be played on top of them.</li>
+              <li><strong>Social Card: </strong>When a player plays a social card, the order of play is reversed.</li>
+              <li>Additional rules are required for playing multiple social cards simultaneously. If an odd number of social cards are played, the order of play is reversed. If an even number of social cards are played, the order of play is unchanged.</li>
+              <li><strong>Cardinal Card: </strong>Allows a player to select another player to swap their hand with. If either player in this exchange has no hand cards, the other player will simply receive an empty hand.</li>
+              <li>Additional rules are required for playing multiple cardinal cards simultaneously: if a player plays n many cardinal cards, they may choose one player to swap their own hand with, and (n-1) many pairs of players to also swap hands. Once a pair has swapped hands, they cannot swap hands again in the same players turn.</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+This comprehensive list of rules was compiled by Jonny Mountford, according to The Judd School rules
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "template.html" %}
+
+{% block title %}
+    Online
+{% endblock %}
+
+{% block main %}
+</div>
+    <div class="card">
+        <img src="..." class="card-img-top" alt="Misc Image To Add">
+    <div class="card-body">
+        <h1 class="card-title">Welcome To Shed Online!</h1>
+        <p class="card-text">You and up to 5 other players are dealt 9 cards. 3 in your hand, 3 in your face ups (which everyone can see) and 3 in your face downs (which noone, not even you can see. You start by playing any cards in your hand. The general rule is that the card you play must be greater than or equal to the card the person before you played (with Ace being high). There are exceptions to this rule to ensure every game is different and fun, these are listed below. If you are unable to play, you pick up the entire pile to your hand. If you are playing with less than 6 people, and you don't deal the entire deck, you will pick up cards from the deck until you have 3 cards in your hand, until the deck is all dealt. Once you play your hand, you start to play from your face ups. Once you have played all of these, you just have to randomly pick cards from your face downs. Since you don't know what these are, you just pick one and if you can play it, you play it. Else, you will have to pick up the pile to your hand (including the played card, which moves from face downs to hand). It is a really fun game, and I hope you have fun playing it!</p>
+    </div>
+        <ul class="list-group list-group-flush">
+            <div class="card-header">
+                <h3>Special Rules</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">A 2 can be played on anything, and anything can be played on it (since all cards are higher than it)</li>
+            <li class="list-group-item">A 3 can be played on anything, but it is 'invisible' and the card you must play on is the one below it in the pile.</li>
+            <li class="list-group-item">An 8 is played like a normal card, but it skips whoever would play next. This effect can be stacked to skip multiple people.</li>
+            <li class="list-group-item">A 9 is played like a normal card, but the next person must play lower than or equal to it, instead of higher than or equal to it like normal.</li>
+            <li class="list-group-item">A 10 is played like a normal card, but when played the entire pile gets 'burnt' and is discarded. The person who played then gets another turn on the now empty pile</li>
+            <li class="list-group-item">Another way to 'burn' cards is to have all 4 cards of the same value in the pile simultaniously. The person who played does not get another turn.</li>
+        </ul>
+        </ul>
+    <div class="card-body">
+        {% if session["user_id"] %}
+        <a href="#" class="btn btn-primary">Play Now!</a>
+        {% else %}
+        <a href="/register" class="btn btn-primary">Register An Account</a>
+        <a href="/login" class="btn btn-primary">Log In To Existing Account</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
