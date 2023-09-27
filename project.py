@@ -26,6 +26,7 @@ class Player:
         self.faceup = faceup
         self.faceup.sort(key=lambda card: card.value) # Sort faceups
         self.hand = hand
+        self.hand.sort(key=lambda card: card.value)
 
     def __str__(self): # Make a string of all cards that a player possesses, dev use only. Otherwise use display function
         h = "|"
@@ -269,15 +270,15 @@ def main():
 
     # Assign players cards from deck
     players, deck = load_players(deck, num_players)
-    print(f"Assigned {9 * num_players} cards to {num_players} players")
+    #print(f"Assigned {9 * num_players} cards to {num_players} players")
 
-    for i in range(len(players)):
-        print(f"Player {i}/{num_players - 1}:\n {str(players[i])}")
+    #for i in range(len(players)):
+        #print(f"Player {i}/{num_players - 1}:\n {str(players[i])}")
 
-    print(f"{len(deck)} cards remaining in deck:")
+    #print(f"{len(deck)} cards remaining in deck:")
 
-    for j in range(len(deck)):
-        print(f"| {deck[j]} ", end="")
+    #for j in range(len(deck)):
+        #print(f"| {deck[j]} ", end="")
 
     print("|\n")
 
@@ -339,10 +340,7 @@ def play_game(deck, players, num_players):
                         print(f"Player {player_no}, your face down has been played to the pile")
                         pile.append(cards_played[0])
                         if cards_played[0].value == 8: # 8 Skips next person, this also covers multiple skips
-                            if play_direction % 2 == 1:
-                                round += 1
-                            else:
-                                round -= 1
+                            round = skip_turn(winners, round, num_players, play_direction)
                             print(f"\nPlayer {round % num_players}, you got your turn skipped by Player {player_no}")
 
                         elif cards_played[0].value == 20: # Social reverses play direction
@@ -364,10 +362,7 @@ def play_game(deck, players, num_players):
                     for card in cards_played:
                         pile.append(card)
                         if card.value == 8: # 8 Skips next person, this also covers multiple skips
-                            if play_direction % 2 == 1:
-                                round += 1
-                            else:
-                                round -= 1
+                            round = skip_turn(winners, round, num_players, play_direction)
                             print(f"\nPlayer {round % num_players}, you got your turn skipped by Player {player_no}")
 
                         elif card.value == 20 : # Social reverses play direction
@@ -475,7 +470,7 @@ def final_standings(winners): # Output the winners array to show final scores
     for i in range(len(winners)):
         print(f"In position {i + 1} is Player {winners[i]}")
 
-    sys.exit("Thanks for playing! Made by George Newman & Friso Bollato-Velda.")
+    sys.exit("Thanks for playing! Made by George Newman.")
 
 
 def load_deck(file_name, deck_count):
@@ -497,12 +492,6 @@ def load_deck(file_name, deck_count):
 
     for _ in range(deck_count - 1):
         deck += deck
-        
-    cards_loaded *= deck_count - 1
-
-    # Check minimum requirements
-    if cards_loaded < 54:
-       sys.exit("File does not match minimum deck requirements")
 
     print(f"{cards_loaded} Cards Loaded")
     print(f"{54 * deck_count} Base Cards Loaded")
@@ -535,6 +524,17 @@ def load_players(deck, num_players):
         players.append(Player(facedown, faceup, hand))
 
     return players, deck
+
+def skip_turn(winners, round, num_players, play_direction):
+    while True:
+        if play_direction % 2 == 1:
+            round += 1
+            if round % num_players not in winners:
+                return round
+        else:
+            round -= 1
+            if round % num_players not in winners:
+                return round
 
 
 if __name__ == "__main__":
